@@ -1,4 +1,4 @@
-# fly.toml app configuration file generated for fly-minecraft-server on 2024-05-06T23:10:08+02:00
+# fly.toml app configuration file generated for fly-minecraft-server on 2024-05-07T23:01:41+02:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
@@ -11,13 +11,18 @@ image = 'itzg/minecraft-server:latest'
 
 [env]
 AUTOSTOP_PKILL_USE_SUDO = 'TRUE'
-AUTOSTOP_TIMEOUT_EST = '120'
-AUTOSTOP_TIMEOUT_INIT = '120'
+AUTOSTOP_TIMEOUT_EST = '60'
+AUTOSTOP_TIMEOUT_INIT = '60'
 ENABLE_AUTOSTOP = 'TRUE'
-EULA = 'TRUE'
-MEMORY = '7G'
-# WHITELIST = 'LoliHunt3r,LoliHuntr'
 ENABLE_WHITELIST = 'FALSE'
+EULA = 'TRUE'
+MEMORY = '3G'
+RCON_CMDS_STARTUP = 'setworldspawn 11984 126 1548'
+SEED = '1691256543523180978'
+DIFFICULTY = 'normal'
+PVP = 'false'
+SERVER_NAME = 'UwU Minecwaft Sewvew'
+
 
 [[mounts]]
 source = 'minecraft_data'
@@ -30,22 +35,25 @@ auto_stop_machines = true
 auto_start_machines = true
 min_machines_running = 0
 
+
 [[services.ports]]
 port = 25565
+
+[[services]]
+protocol = 'tcp'
+internal_port = 25575
+auto_stop_machines = true
+auto_start_machines = true
+min_machines_running = 0
+
+[[services.ports]]
+port = 25575
 
 [[services.ports]]
 port = 80
 handlers = ['http']
 
-[checks]
-[checks.minecraft_server_tcp_check]
-port = 25565
-type = 'tcp'
-interval = '30s'
-timeout = '20s'
-grace_period = '30s'
-
 [[vm]]
-memory = '8gb'
+memory = '4gb'
 cpu_kind = 'shared'
-cpus = 4
+cpus = 2
